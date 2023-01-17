@@ -1,0 +1,225 @@
+
+/* Global */
+.vheight-100 {
+  min-height: 100vh;
+}
+
+/* Styles related to NavBar */
+.navbar-padding {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.below-nav {
+  padding-top: 5rem;
+}
+
+/* Icons */
+.icon-size {
+  font-size: 1.5rem;
+}
+
+/* Filters and projects */
+.list-group-item {
+  background-color: transparent;
+}
+
+.list-group-item.active {
+  background-color: #055c9d;
+  border-color: #055c9d;
+}
+
+.list-group-item-action:hover {
+  background-color: #0e86d4;
+  color: white;
+}
+
+small.watch-date {
+  text-align: right;
+}
+
+.projects-title {
+  margin-top: 2rem;
+}
+
+.notbold{
+  font-weight:normal;
+}​
+
+/* Class for important tasks */
+.favorite {
+  color: red;
+}
+
+.bi-favorite {
+  color: red;
+}
+
+
+/* Chaning color when mouse over to suggest that interaction is possible */
+
+.bi-star:hover {
+  fill: #0e86d4;
+  color: #055c9d;
+}
+
+.bi-star-fill:hover {
+  fill: #0e86d4;
+  color: #055c9d;
+}
+
+.bi-trash:hover {
+  fill: red;
+  color: red;
+}
+
+.bi-pencil-square:hover {
+  fill: green;
+  color: green;
+}
+
+/* Add task button */
+.fixed-right-bottom {
+  position:relative;
+  right: 0;
+  bottom: 0;
+  z-index: 1030;
+  margin: 0 1.5rem 1.5rem 0;
+  border-radius: 50%;
+}
+
+/* Adding padding to form */
+.form-padding {
+  padding: 2rem;
+}
+
+
+.keep-white-space {
+  white-space: pre-wrap;
+}
+
+.toast {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+}
+
+.distance {
+  margin-right: 50px;
+}
+
+.play {
+  background-color: green;
+  border-color: green;
+  position: absolute;
+  right: 411px;
+  top: 55%;
+  transform: translateY(-50%);
+}
+
+.play:hover {
+  background-color: rgb(28, 110, 3);
+  border-color: rgb(28, 110, 3);
+}
+
+.rainbow {
+  color: rgba(0, 204, 255, 0.973);
+  position: absolute;
+  right: 210px;
+  top: 20%;
+  transform: translateY(-50%);
+}
+
+.welcome {
+  color: rgba(0, 102, 255, 0.973);
+  position: absolute;
+  left: 210px;
+  top: 18%;
+  transform: translateY(-50%);
+}
+
+.login-form {
+  position: absolute;
+  right: 300px;
+  top: 40%;
+  transform: translateY(-50%);
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 10rem 10rem 10rem;
+  grid-gap: 1rem;
+}
+
+.ingredient-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.ingredient-list__item {
+  background-color: #92ec77;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  padding: 8px;
+}
+
+.ingredient-list__item:hover {
+  background-color: #54b85d;
+}
+
+.protein-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.protein-list__item {
+  background-color: #eb81d4;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  padding: 8px;
+}
+
+.protein-list__item:hover {
+  background-color: #be59a0;
+}
+
+.bowl-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.bowl-list__item {
+  background-color: #e79959;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  padding: 8px;
+}
+
+.bowl-list__item:hover {
+  background-color: #bd9833;
+}
+
+.category {
+  background-color: #d0e960;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 8px;
+}
+
+.info {
+  background-color: #d0e960;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 8px;
+}
+
+.display-linebreak {
+  white-space: pre-line;
+}
