@@ -18,9 +18,6 @@ const Navigation = (props) => {
         <i className="bi bi-collection-play icon-size"/> Hawaiian Poke
         </Navbar.Brand>
       </Link>
-      <Form className="my-2 my-lg-0 mx-auto d-sm-block" action="#" role="search" aria-label="Quick search" onSubmit={handleSubmit}>
-        <Form.Control className="mr-sm-2" type="search" placeholder="Search" aria-label="Search query" />
-      </Form>
       <Nav className="ml-md-auto">
         <Navbar.Text className="mx-2">
           {props.user && props.user.name && `Welcome, ${props.user.name}!`}
