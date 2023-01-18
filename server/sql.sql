@@ -55,3 +55,4 @@
 -- INSERT INTO users (id, email, name, hash, salt) VALUES ("1", "john.doe@polito.it", "John", "e06a2f2073a3d66d1ca4fd6ce04c64fe684ea19c27660b05e2fbf7269ce9ff42", "72e4eeb14def3b21");
 -- INSERT INTO users (id, email, name, hash, salt) VALUES ("2", "mario.rossi@polito.it", "Mario", "ac28edf49ba34ac83c17145375a030b4579ffddf3fe1dbb68f530bb3ca4ce514", "a8b618c717683608");
 -- INSERT INTO users (id, email, name, hash, salt) VALUES ("3", "testuser@polito.it", "Testuser", "4af3cc8549ccc19af11b711cada4509c4e93c57cca34078c683498ed7bf64258", "e818f0647b4e1fe0");
+-- all passwords are "password"

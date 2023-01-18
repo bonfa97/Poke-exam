@@ -50,7 +50,7 @@ const OrderForm = (props) => {
   const [ingredients, setIngredients] = useState(props.order ? props.order.ingredients : 0);
   const [price, setPrice] = useState(props.order ? props.order.price : 0);
 
-  const testPrice = (type, b, p, i) => {
+  function computePrice (type, b, p, i)  {
     const bowl = bowlsList[type];
     let price = bowl.price
     if (p > bowl.maxProteins) {
@@ -62,101 +62,9 @@ const OrderForm = (props) => {
     if (b > 4) {
       price -= price / 10
     }
-    return price * b
+    setPrice((price * b).toFixed(2));
   }
 
-
-  function computePrice(type, b, p, i) {
-    const test = testPrice(type, b, p, i)
-    console.log("test", test)
-
-    let priceUpdated = 0;
-
-    if (type == 1 && b < 5) {
-      if (p > 1 && i > 4)
-        setPrice((bowlsList[type].price + (bowlsList[type].price / 5) * (p - 1) + (bowlsList[type].price / 5) * (i - 4)) * b);
-      else if (i > 4)
-        setPrice((bowlsList[type].price + (bowlsList[type].price / 5) * (i - 4)) * b);
-      else if (p > 1)
-        setPrice((bowlsList[type].price + (bowlsList[type].price / 5) * (p - 1)) * b);
-      else
-        setPrice((bowlsList[type].price) * b);
-    }
-    else if (type == 1 && b > 4) {
-      if (p > 1 && i > 4) {
-        priceUpdated = (bowlsList[type].price + (bowlsList[type].price / 5) * (p - 1) + (bowlsList[type].price / 5) * (i - 4)) * b;
-        setPrice(priceUpdated - priceUpdated / 10);
-      }
-      else if (i > 4) {
-        priceUpdated = (bowlsList[type].price + (bowlsList[type].price / 5) * (i - 4)) * b;
-        setPrice(priceUpdated - priceUpdated / 10);
-      }
-      else if (p > 1) {
-        priceUpdated = (bowlsList[type].price + (bowlsList[type].price / 5) * (p - 1)) * b;
-        setPrice(priceUpdated - priceUpdated / 10);
-      }
-      else {
-        priceUpdated = (bowlsList[type].price) * b;
-        setPrice(priceUpdated - priceUpdated / 10);
-      }
-    }
-    else if (type == 2 && b < 5) {
-      if (p > 2 && i > 4)
-        setPrice((bowlsList[type].price + (bowlsList[type].price / 5) * (p - 2) + (bowlsList[type].price / 5) * (i - 4)) * b);
-      else if (i > 4)
-        setPrice((bowlsList[type].price + (bowlsList[type].price / 5) * (i - 4)) * b);
-      else if (p > 2)
-        setPrice((bowlsList[type].price + (bowlsList[type].price / 5) * (p - 2)) * b);
-      else
-        setPrice((bowlsList[type].price) * b);
-    }
-    else if (type == 2 && b > 4) {
-      if (p > 2 && i > 4) {
-        priceUpdated = (bowlsList[type].price + (bowlsList[type].price / 5) * (p - 2) + (bowlsList[type].price / 5) * (i - 4)) * b;
-        setPrice(priceUpdated - priceUpdated / 10);
-      }
-      else if (i > 4) {
-        priceUpdated = (bowlsList[type].price + (bowlsList[type].price / 5) * (i - 4)) * b;
-        setPrice(priceUpdated - priceUpdated / 10);
-      }
-      else if (p > 2) {
-        priceUpdated = (bowlsList[type].price + (bowlsList[type].price / 5) * (p - 2)) * b;
-        setPrice(priceUpdated - priceUpdated / 10);
-      }
-      else {
-        priceUpdated = (bowlsList[type].price) * b;
-        setPrice(priceUpdated - priceUpdated / 10);
-      }
-    }
-    else if (type == 3 && b < 5) {
-      if (p > 3 && i > 6)
-        setPrice((bowlsList[type].price + (bowlsList[type].price / 5) * (p - 3) + (bowlsList[type].price / 5) * (i - 6)) * b);
-      else if (i > 6)
-        setPrice((bowlsList[type].price + (bowlsList[type].price / 5) * (i - 6)) * b);
-      else if (p > 3)
-        setPrice((bowlsList[type].price + (bowlsList[type].price / 5) * (p - 3)) * b);
-      else
-        setPrice((bowlsList[type].price) * b);
-    }
-    else if (type == 3 && b > 4) {
-      if (p > 3 && i > 6) {
-        priceUpdated = (bowlsList[type].price + (bowlsList[type].price / 5) * (p - 3) + (bowlsList[type].price / 5) * (i - 6)) * b;
-        setPrice(priceUpdated - priceUpdated / 10);
-      }
-      else if (i > 6) {
-        priceUpdated = (bowlsList[type].price + (bowlsList[type].price / 5) * (i - 6)) * b;
-        setPrice(priceUpdated - priceUpdated / 10);
-      }
-      else if (p > 3) {
-        priceUpdated = (bowlsList[type].price + (bowlsList[type].price / 5) * (p - 3)) * b;
-        setPrice(priceUpdated - priceUpdated / 10);
-      }
-      else {
-        priceUpdated = (bowlsList[type].price) * b;
-        setPrice(priceUpdated - priceUpdated / 10);
-      }
-    }
-  }
 
   const setBowlsQuantity = (event) => {
     const { value } = event.target;
@@ -164,17 +72,6 @@ const OrderForm = (props) => {
     computePrice(bowlType, value, proteins, ingredients);
   }
 
-  const setProteinsQuantity = (event) => {
-    const { value } = event.target;
-    setProteins(value);
-    computePrice(bowlType, bowls, value, ingredients);
-  }
-
-  const setIngredientsQuantity = (event) => {
-    const { value } = event.target;
-    setIngredients(value);
-    computePrice(bowlType, bowls, proteins, value);
-  }
 
   const handleBowlChange = (event) => {
     const { id, value, checked } = event.target;
@@ -225,7 +122,10 @@ const OrderForm = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    if(bowls < 1){
+      alert('Please select a number of bowls');
+      return;
+  }  
     try {
       const response = await fetch(SERVER_URL + `check-availability?bowlType=${bowlType}&bowls=${bowls}`);
       const data = await response.json();
@@ -233,35 +133,19 @@ const OrderForm = (props) => {
         const newQuantity = data.availability.availability - bowls;
         const order = new Order({ bowls, proteins, ingredients, price });
 
-        console.log('bowlType', bowlType);
-        console.log('newQuantity', newQuantity);
-        console.log('selectedProteins', selectedProteins);
-        console.log('selectedIngredients', selectedIngredients);
-
-        // if (props.order === undefined) {
         const newOrder = await props.addOrder(order)
 
         alert('Order placed successfully');
-        // await API.updateAvailability(bowlType, newQuantity);
+        //await API.updateAvailability(bowlType, newQuantity);
         await fetch(SERVER_URL + `update-availability?a=${bowlType}&b=${newQuantity}`);
-        // } else {
-        //   order.id = props.order.id;
-        //   props.editOrder(order);
-        //   alert('Order updated successfully');
-        // }
-        // for (let i = 0; i < selectedProteins.length; i++) {
-        //   API.insertOrderProtein(order, selectedProteins[i]);
-        // }
-        // for (let i = 0; i < selectedIngredients.length; i++) {
-        //   API.insertOrderIngredient(order, selectedIngredients[i]);
-        // }
 
         API.insertOrderProtein(newOrder.id, selectedProteins);
         API.insertOrderIngredient(newOrder.id, selectedIngredients);
         navigate('/');
         // }
 
-      } else {
+      } 
+      else {
         alert('Order denied, not enough ' + bowlsList[bowlType].name + ' poke bowls');
       }
     } catch (err) {
@@ -309,9 +193,6 @@ const OrderForm = (props) => {
             </li>
           ))}
         </ul>
-        <Form.Select aria-label="Proteins" defaultValue={proteinsList} onClick={setProteinsQuantity}>
-          {[...Array(5)].map((v, i) => <option key={i} value={i}>{i}</option>)}
-        </Form.Select>
       </Form.Group>
 
       <Form.Group className="mb-3">
@@ -329,16 +210,10 @@ const OrderForm = (props) => {
             </li>
           ))}
         </ul>
-        <Form.Select aria-label="Ingredients" defaultValue={ingredientsList} onClick={setIngredientsQuantity}>
-          {[...Array(8)].map((v, i) => <option key={i} value={i}>{i}</option>)}
-        </Form.Select>
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label>type: {bowlType} -- b: {bowls} -- p: {proteins} -- i: {ingredients} -- Price: {price} -- Pchecked: {proteinsCount} -- Ichecked: {ingredientsCount}</Form.Label>
-        <Form.Select aria-label="Price" defaultValue={price} onChange={event => setPrice(event.target.value)}>
-          {[...Array(20)].map((v, i) => <option key={i} value={i}>{i}</option>)}
-        </Form.Select>
+        <Form.Label>  Price: {price}€ </Form.Label>
       </Form.Group>
 
       <Button className="mb-3" variant="primary" type="submit">Save</Button>

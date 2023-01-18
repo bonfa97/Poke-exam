@@ -105,7 +105,6 @@ function OrderRow(props) {
         </Link>
       </td>
       <td>
-        { /* NOTE: HTML collapses multiple withespaces into one, so "Hello      world!" becomes "Hello world!". If you want to keep them use white-space: pre-wrap; */}
         <p className={['category keep-white-space', props.orderData.favorite ? "bi-favorite" : ""].join(' ')
         }>
           {`${props.orderData.bowls} bowl/s`}
@@ -122,8 +121,6 @@ function OrderRow(props) {
               <p>Proteins:</p>
               <ul>
                 {proteinsChecked.map((protein, index) => (<p key={index}>{proteinsList[protein].name}</p>))}
-                {/* {data1.map((protein, index) => ( <li key={index}>{protein.name}</li> ))} */}
-                {/* {Object.values(proteinsList).map((protein, index) => ( <li key={index}>{protein.name}</li> ))} */}
               </ul>
             </div>
           )}
@@ -140,8 +137,6 @@ function OrderRow(props) {
                 <p>Ingredients:</p>
                 <ul>
                   {ingredientsChecked.map((ingredient, index) => (<p key={index}>{ingredientsList[ingredient].name}</p>))}
-                  {/* {data2.map((ingredient, index) => (<li key={index}>{ingredient.name}</li>))} */}
-                  {/* {Object.values(ingredientsList).map((ingredient, index) => (<li key={index}>{ingredient.name}</li> ))} */}
                 </ul>
               </div>
             )}
@@ -151,7 +146,7 @@ function OrderRow(props) {
 
       <td>
         <p className={['category keep-white-space', props.orderData.favorite ? "bi-favorite" : ""].join(' ')}>
-          {`${props.orderData.price} euro's paid`}
+          {`${props.orderData.price.toFixed(2)}€`}
         </p>
       </td>
     </tr>

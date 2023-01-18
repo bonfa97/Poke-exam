@@ -23,9 +23,6 @@ function DefaultLayout(props) {
 
   return (
     <Row className="vh-100">
-      <Col md={4} bg="light" className="below-nav" id="left-sidebar">
-        <RouteFilters items={props.filters} selected={filterId} />
-      </Col>
       <Col md={8} className="below-nav">
         <Outlet />
       </Col>
@@ -84,7 +81,7 @@ function MainLayout(props) {
 
   return (
     <>
-      <h1 className="pb-3">Filter: <span className="notbold">{filterName}</span></h1>
+      <h1 className="pb-3"> <span className="notbold">{filterName}</span></h1>
       <OrderTable orders={filteredOrders}
         deleteOrder={deleteOrder} updateOrder={updateOrder} />
       <Link to="/add" state={{ nextpage: location.pathname }}>
@@ -165,8 +162,6 @@ function LoginLayout(props) {
 function LoadingLayout(props) {
   return (
     <Row className="vh-100">
-      <Col md={4} bg="light" className="below-nav" id="left-sidebar">
-      </Col>
       <Col md={8} className="below-nav">
         <h1>Too many orders are creating some traffic...</h1>
       </Col>

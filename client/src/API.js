@@ -81,7 +81,7 @@ const getOrder = async (orderId) => {
 
  function updateAvailability(type, quantity){
   return getJson(
-    fetch(SERVER_URL + "update-availability/?bowlType=" + type + "&bowls=" + quantity, {
+    fetch(SERVER_URL + "update-availability/?a=" + type + "&b=" + quantity, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
