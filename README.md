@@ -31,7 +31,7 @@ Provide a short description for API with the required parameters, follow the pro
 
 ### Order management
 
-#### Get all films
+#### Get all orders
 
 * HTTP method: `GET`  URL: `/api/orders`
 * Description: Get the full list of orders and belong to the logged user
@@ -263,15 +263,18 @@ Provide a short description for API with the required parameters, follow the pro
 
 * Error responses:  `500 Internal Server Error` (generic error), `401 Unauthorized User` (user is not logged in)
 
-#### React components routes
+#### React routes
 
-"/login" -> homepage layout with menu options and login form
+"/login" -> homepage layout with menu features and login form
 
-"/" -> pastOrders layout with list of past orders of logged user 
+"/" -> layout with list of past orders of logged user 
 
 "/add" -> addLayout with order form
 
-"*" -> NotFoundLayout
+#### React components
+
+ListOfSomething (in List.js): component purpose and main functionality
+GreatButton (in GreatButton.js): component purpose and main functionality
 
 #### Database tables:
 
