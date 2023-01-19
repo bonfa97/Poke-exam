@@ -34,7 +34,7 @@ const ingredientsList = {
 
 function OrderTable(props) {
   useEffect(() => {
-    console.log("orders", props.orders)
+    // console.log("orders", props.orders)
   }, [props.orders]);
   
   return (
@@ -53,6 +53,7 @@ function OrderTable(props) {
 
 function OrderRow(props) {
 
+  const [typeChecked, setTypeChecked] = useState([]);
   const [proteinsChecked, setProteinsChecked] = useState([]);
   const [ingredientsChecked, setIngredientsChecked] = useState([]);
   const location = useLocation();
@@ -68,6 +69,14 @@ function OrderRow(props) {
 
   const fetchData = async () => {
     try {
+      const response0 = await fetch(SERVER_URL + `order_type?id=${props.orderData.id}`);
+        //const response0 = await API.checkTypeDetails(props.orderData.id);
+        // const response0 = await fetch(SERVER_URL + `order_type/${props.orderData.id}`);
+        if (!response0.ok) throw new Error(response1.statusText);
+        const data0 = await response0.json();
+        // console.log("res0",data0);
+        setTypeChecked(data0.vectorT);
+        //setTypeChecked(Array.isArray(data0) ? data0 : []);
        const response1 = await fetch(SERVER_URL + `order_protein?id=${props.orderData.id}`);
         //const response1 = await API.checkProteinsDetails(props.orderData.id);
         // const response1 = await fetch(SERVER_URL + `order_protein/${props.orderData.id}`);
@@ -95,10 +104,6 @@ function OrderRow(props) {
   return (
     <tr>
       <td>
-        <Link to={"/edit/" + props.orderData.id} state={{ nextpage: location.pathname }}>
-          <i className="bi bi-pencil-square" />
-        </Link>
-        &nbsp; &nbsp;
         { /* Forces link to the same page so that has the same appearence of the edit link */}
         <Link to={{}}>
           <i className="bi bi-trash" onClick={() => { props.deleteOrder(props.orderData) }} />
@@ -107,7 +112,18 @@ function OrderRow(props) {
       <td>
         <p className={['category keep-white-space', props.orderData.favorite ? "bi-favorite" : ""].join(' ')
         }>
+          <tr onClick={toggleDetails}>
           {`${props.orderData.bowls} bowl/s`}
+          
+          {detailsVisible && (
+            <div>
+              <p></p>
+              <ul>
+                {typeChecked.map((bowl, index) => (<p key={index}>{bowlsList[bowl].name}</p>))}
+              </ul>
+            </div>
+          )}
+          </tr>
         </p>
       </td>
 
@@ -115,16 +131,16 @@ function OrderRow(props) {
         <p className={['category keep-white-space', props.orderData.favorite ? "bi-favorite" : ""].join(' ')}>
           <tr onClick={toggleDetails}>
             {`${props.orderData.proteins} protein/s`}
-          </tr>
+          
           {detailsVisible && (
             <div>
-              <p>Proteins:</p>
+              <p></p>
               <ul>
                 {proteinsChecked.map((protein, index) => (<p key={index}>{proteinsList[protein].name}</p>))}
               </ul>
             </div>
           )}
-          <tr />
+          </tr>
         </p>
       </td>
 
@@ -134,7 +150,7 @@ function OrderRow(props) {
             {`${props.orderData.ingredients} ingredient/s`}
             {detailsVisible && (
               <div>
-                <p>Ingredients:</p>
+                <p></p>
                 <ul>
                   {ingredientsChecked.map((ingredient, index) => (<p key={index}>{ingredientsList[ingredient].name}</p>))}
                 </ul>
@@ -145,7 +161,7 @@ function OrderRow(props) {
       </td>
 
       <td>
-        <p className={['category keep-white-space', props.orderData.favorite ? "bi-favorite" : ""].join(' ')}>
+        <p className={['categorynohover keep-white-space', props.orderData.favorite ? "bi-favorite" : ""].join(' ')}>
           {`${props.orderData.price.toFixed(2)}€`}
         </p>
       </td>

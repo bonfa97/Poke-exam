@@ -15,7 +15,7 @@ const Navigation = (props) => {
     <Navbar bg="primary" expand="sm" variant="dark" fixed="top" className="navbar-padding">
       <Link to="/">
         <Navbar.Brand>
-        <i className="bi bi-collection-play icon-size"/> Hawaiian Poke
+        <i className="bi bi-cart3 icon-size"/> Hawaiian Poke
         </Navbar.Brand>
       </Link>
       <Nav className="ml-md-auto">

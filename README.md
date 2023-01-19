@@ -1,18 +1,5 @@
-# BigLab 2 - Class: 2022 [AW1/WA1-AJ/WA1-KZ]
-
-## Team name: TEAM_NAME
-
-Team members:
-
-* s123456 Mannella Luca
-* s123457 Sáenz Moreno Juan Pablo
-* s123458 Servetti Antonio
 
 ## Instructions
-
-A general description of the BigLab 2 is avaible in the `course-materials` repository, [under _labs_](https://polito-wa1-aw1-2022.github.io/materials/labs/BigLab2/BigLab2.pdf). In the same repository, you can find the [instructions for GitHub Classroom](https://polito-wa1-aw1-2022.github.io/materials/labs/GH-Classroom-BigLab-Instructions.pdf), covering BigLabs and exam sessions.
-
-Once you cloned this repository, please write the group name and names of the members of the group in the above section.
 
 In the `client` directory, do **NOT** create a new folder for the project, i.e., `client` should directly contain the `public` and `src` folders and the `package.json` files coming from BigLab1.
 
@@ -25,9 +12,6 @@ Remember that `npm install` should be executed inside the `client` and `server` 
 Finally, remember to add the `final` tag for the final submission, otherwise it will not be graded.
 
 ## Registered Users
-
-Here you can find a list of the users already registered inside the provided database. This information will be used during the fourth week, when you will have to deal with authentication.
-If you decide to add additional users, please remember to add them to this table (with **plain-text password**)!
 
 | email | password | name |
 |-------|----------|------|
@@ -45,35 +29,34 @@ Provide a short description for API with the required parameters, follow the pro
 * [Sample response, with body (if any)]
 * [Error responses, if any]
 
-### Film Management
-
+### Order management
 
 #### Get all films
 
-* HTTP method: `GET`  URL: `/api/films`
-* Description: Get the full list of films or the films that match the query filter parameter, and belong to the logged user
+* HTTP method: `GET`  URL: `/api/orders`
+* Description: Get the full list of orders and belong to the logged user
 * Request body: _None_
-* Request query parameter: _filter_ name of the filter to apply (filter-all, filter-favorite, filter-best, filter-lastmonth, filter-unseen)
+* Request query parameter: _None_
 * Response: `200 OK` (success)
-* Response body: Array of objects, each describing one film:
+* Response body: Array of objects, each describing one order:
 
 ``` json
 [
   {
     "id": 1,
-    "title": "Pulp Fiction",
-    "favorite": 1,
-    "watchDate": "2022-03-11",
-    "rating": 5,
+    "bowls": 2,
+    "proteins": 2,
+    "ingredients": 4,
+    "price": 22,
     "user": 1
   },
   {
     "id": 2,
-    "title": "21 Grams",
-    "favorite": 1,
-    "watchDate": "2022-03-17",
-    "rating": 4,
-    "user": 1
+    "bowls": 3,
+    "proteins": 2,
+    "ingredients": 3,
+    "price": 42,
+    "user": 3
   },
   ...
 ]
@@ -81,10 +64,10 @@ Provide a short description for API with the required parameters, follow the pro
 
 * Error responses:  `500 Internal Server Error` (generic error)
 
-#### Get film by id
+#### Get order by id
 
-* HTTP method: `GET`  URL: `/api/films/:id`
-* Description: Get the film corresponding to the id (if it belongs to the current logged user)
+* HTTP method: `GET`  URL: `/api/orders/:id`
+* Description: Get the order corresponding to the id (if it belongs to the current logged user)
 * Request body: _None_
 * Response: `200 OK` (success)
 * Response body: One object describing the required film:
@@ -92,11 +75,11 @@ Provide a short description for API with the required parameters, follow the pro
 ``` JSON
 [
   {
-    "id": 2,
-    "title": "21 Grams",
-    "favorite": 1,
-    "watchDate": "2022-03-17",
-    "rating": 4,
+    "id": 1,
+    "bowls": 2,
+    "proteins": 2,
+    "ingredients": 4,
+    "price": 22,
     "user": 1
   }
 ]
@@ -106,19 +89,18 @@ Provide a short description for API with the required parameters, follow the pro
 
 
 
-#### Add a new film
+#### Add a new order
 
-* HTTP method: `POST`  URL: `/api/films`
-* Description: Add a new film to the films of the logged user
-* Request body: description of the object to add (user propery, if present, is ignored and substituted with the id of the logged user, film id value is not required and is ignored)
+* HTTP method: `POST`  URL: `/api/orders`
+* Description: Add a new order to the orders of the logged user
+* Request body: description of the object to add (user propery, if present, is ignored and substituted with the id of the logged user, id generated in database)
 
 ``` JSON
 {
-    "id": 2,
-    "title": "21 Grams",
-    "favorite": 1,
-    "watchDate": "2022-03-17",
-    "rating": 4,
+    "bowls": 2,
+    "proteins": 2,
+    "ingredients": 4,
+    "price": 22,
     "user": 1
 }
 ```
@@ -128,33 +110,92 @@ Provide a short description for API with the required parameters, follow the pro
 
 * Error responses:  `422 Unprocessable Entity` (values do not satisfy validators), `503 Service Unavailable` (database error)
 
-#### Update an existing film
+#### Check availability 
 
-* HTTP method: `PUT`  URL: `/api/films/:id`
-* Description: Update values of an existing film (except the id) of the logged user
-* Request body: description of the object to update
+* HTTP method: `GET`  URL: `/api/check-availability`
+* Description: Get the availability of the type specified inside order 
+* Request body: bowl type and quantity
+* Response: `200 OK` (success)
+* Response body: the quantity available
 
 ``` JSON
-{
-    "id": 2,
-    "title": "21 Grams",
-    "favorite": 1,
-    "watchDate": "2022-03-17",
-    "rating": 4,
-    "user": 1
-}
+[
+  {
+    "quantity": 6,
+  }
+]
 ```
 
+* Error responses:  `500 Internal Server Error` (generic error), `404 Not Found` (not present or unavailable)
+
+#### Update availability 
+
+* HTTP method: `GET`  URL: `/api/update-availability`
+* Description: Get the availability updated of the type specified inside order 
+* Request body: bowl type and quantity
 * Response: `200 OK` (success)
-* Response body: the object as represented in the database
+* Response body: status "success"
 
-* Error responses:  `422 Unprocessable Entity` (values do not satisfy validators), `503 Service Unavailable` (database error)
+``` JSON
+[
+  {
+    "status": "success",
+  }
+]
+```
 
+* Error responses:  `500 Internal Server Error` (generic error), `404 Not Found` (not present or unavailable)
 
-#### Delete an existing film
+#### Retrieve type, proteins and ingredients of the past orders (of the user logged in) 
 
-* HTTP method: `DELETE`  URL: `/api/films/:id`
-* Description: Delete an existing film of the logged user
+* HTTP method: `GET`  URL: `/api/order_type` `/api/order_protein` `/api/order_ingredient`
+* Description: Get the details of the order specified
+* Request body: order id
+* Response: `200 OK` (success)
+* Response body: type, proteins list and ingredient list
+
+``` JSON
+[
+  {
+    "type": 2,
+  }
+]
+[
+  {
+    "proteins": [4,5],
+  }
+]
+[
+  {
+    "ingredients": [9,11,15],
+  }
+]
+```
+
+* Error responses:  `500 Internal Server Error` (generic error), `404 Not Found` (not present or unavailable)
+
+#### Post in database tables type, proteins and ingredients of the order submitted (of the user logged in) 
+
+* HTTP method: `POST`  URL: `/api/order_types` `/api/order_proteins` `/api/order_ingredients`
+* Description: Post the details of the order specified
+* Request body: order id and respectively type, proteins list, ingredient list
+* Response: `200 OK` (success)
+* Response body: status "success"
+
+``` JSON
+[
+  {
+    "status": "success",
+  }
+]
+```
+
+* Error responses:  `500 Internal Server Error` (generic error), `404 Not Found` (not present or unavailable)
+
+#### Delete an existing order (not requested, just useful)
+
+* HTTP method: `DELETE`  URL: `/api/orders/:id`
+* Description: Delete an existing order of the logged user
 * Request body: _None_
 
 * Response: `200 OK` (success)
@@ -162,58 +203,6 @@ Provide a short description for API with the required parameters, follow the pro
 
 * Error responses:  `503 Service Unavailable` (database error)
 
-
-#### Update favorite property of an existing film (not required)
-
-* HTTP method: `PUT`  URL: `/api/films/:id/favorite`
-* Description: Update favorite property value of an existing film of the logged user
-* Request body: value of the favorite property
-
-``` JSON
-{
-    "id": 2,
-    "favorite": 1,
-}
-```
-
-* Response: `200 OK` (success)
-* Response body: the object as represented in the database
-
-* Error responses:  `422 Unprocessable Entity` (values do not satisfy validators), `503 Service Unavailable` (database error)
-
-
-#### Get filter list (not required)
-
-* HTTP method: `GET`  URL: `/api/filters`
-* Description: Get the object that describes the filters
-* Request body: _None_
-* Response: `200 OK` (success)
-* Response body: An object with ids of the filters as key
-
-```JSON
-{
-  "filter-all": {
-    "label": "All",
-    "id": "filter-all"
-  },
-  "filter-favorite": {
-    "label": "Favorites",
-    "id": "filter-favorite"
-  },
-  "filter-best": {
-    "label": "Best Rated",
-    "id": "filter-best"
-  },
-  "filter-lastmonth": {
-    "label": "Seen Last Month",
-    "id": "filter-lastmonth"
-  },
-  "filter-unseen": {
-    "label": "Unseen",
-    "id": "filter-unseen"
-  }
-}
-```
 
 ### User management
 
@@ -273,3 +262,24 @@ Provide a short description for API with the required parameters, follow the pro
 * Response body: _None_
 
 * Error responses:  `500 Internal Server Error` (generic error), `401 Unauthorized User` (user is not logged in)
+
+#### React components routes
+
+"/login" -> homepage layout with menu options and login form
+
+"/" -> pastOrders layout with list of past orders of logged user 
+
+"/add" -> addLayout with order form
+
+"*" -> NotFoundLayout
+
+#### Database tables:
+
+users -> for users data ( name, email, hashed password, salt, id )
+orders -> for orders submitted data ( id, bowls num, proteins num, ingredients num, price, user id)
+bowls_details -> for storing bowls options ( id, name, price)
+proteins -> for storing proteins options ( id, name)
+ingredients -> for storing ingredients options ( id, name)
+order_type -> for storing bowl type of each order ( better implementation would have been to save it directly in class order) 
+order_protein -> for storing multiple proteins correlated to single order id ( one to many relationship )
+order_ingredient -> for storing multiple ingredients correlated to single order id ( one to many relationship )

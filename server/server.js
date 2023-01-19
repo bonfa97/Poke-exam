@@ -141,7 +141,7 @@ app.get('/api/orders',
 isLoggedIn,               // check: is the user logged-in?
 (req, res) => {
   // NOTE: user exists for sure otherwise isLoggedIn would fail
-  // get films that match optional filter in the query
+  // get orders that match optional filter in the query
   orderDao.listOrders(req.user.id, req.query.filter)
     // NOTE: "invalid dates" (i.e., missing dates) are set to null during JSON serialization
     .then(orders => res.json(orders))
@@ -157,6 +157,18 @@ app.get('/api/check-availability', async (req, res) => {
   } catch (err) {
       console.error(err);
       res.status(500).json({ status: 'error', message: 'Internal server error' });
+  }
+});
+
+app.get('/api/order_type', async (req, res) => {
+  try {
+    const { id } = req.query;
+    //console.log(detailsId);
+    const vectorT = await orderDao.searchTypeDetails(id);
+    res.json(vectorT);
+  } catch (err) {
+    console.error(err);
+    res.status(500).end();
   }
 });
 
@@ -185,8 +197,8 @@ app.get('/api/order_ingredient', async (req, res) => {
 });
 
 
-// GET /api/films/<id>
-// Given a film id, this route returns the associated film from the library.
+// GET /api/orders/<id>
+// Given a order id, this route returns the associated order from the library.
 app.get('/api/orders/:id', 
 isLoggedIn,                 // check: is the user logged-in?
 [ check('id').isInt() ],    // check: validation
@@ -201,6 +213,16 @@ async (req, res) => {
     } catch (err) {
       res.status(500).end();
     }
+});
+
+app.post('/api/order_types', async (req, res) => {
+  const { orderId, typeId } = req.body;
+  try {
+    const result = await orderDao.insertOrderType(orderId, typeId);
+    res.json(result); 
+  } catch (err) {
+    res.status(503).json({ error: `Database error during the update of order ${req.params.id}: ${err}` });
+  }
 });
 
 app.post('/api/order_proteins', async (req, res) => {
@@ -224,8 +246,8 @@ app.post('/api/order_ingredients', async (req, res) => {
 });
 
 
-// POST /api/films
-// This route adds a new film to film library.
+// POST /api/orders
+// This route adds a new order to list.
 app.post('/api/orders',
 isLoggedIn,
 [
@@ -251,7 +273,7 @@ async (req, res) => {
   };  
 
   try {
-    const result = await orderDao.createOrder(order); // NOTE: createFilm returns the new created object
+    const result = await orderDao.createOrder(order); // NOTE: createOrder returns the new created object
     res.json(result); 
   } catch (err) {
     res.status(503).json({ error: `Database error during the creation of new order: ${err}` }); 
@@ -269,8 +291,8 @@ app.get('/api/update-availability', async (req, res) => {
   }
 });
 
-// PUT /api/films/<id>
-// This route allows to modify a film, specifiying its id and the necessary data.
+// PUT /api/orders/<id>
+// This route allows to modify a order, specifiying its id and the necessary data.
 app.put('/api/orders/:id', 
 isLoggedIn,
   [
@@ -310,7 +332,7 @@ isLoggedIn,
 
 });
 
-// PUT /api/films/<id>/favorite 
+// PUT /api/orders/<id>/favorite 
 // This route changes only the favorite value. It could also be a PATCH.
 app.put('/api/orders/:id/favorite', 
 isLoggedIn,
@@ -341,14 +363,14 @@ isLoggedIn,
 
 });
 
-// DELETE /api/films/<id>
-// Given a film id, this route deletes the associated film from the library.
+// DELETE /api/orders/<id>
+// Given a order id, this route deletes the associated order from the library.
 app.delete('/api/orders/:id', 
 isLoggedIn,
   [ check('id').isInt() ], 
   async (req, res) => {
   try {
-    // NOTE: if there is no film with the specified id, the delete operation is considered successful.
+    // NOTE: if there is no order with the specified id, the delete operation is considered successful.
     await orderDao.deleteOrder(req.user.id, req.params.id);
     res.status(200).json({}); 
   } catch (err) {

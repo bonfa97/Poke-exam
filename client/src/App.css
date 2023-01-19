@@ -78,6 +78,14 @@ small.watch-date {
   color: green;
 }
 
+.width-100 {
+  width: 100%;
+}
+.container-max-width {
+  max-width: 100%;
+}
+
+
 /* Add task button */
 .fixed-right-bottom {
   position:relative;
@@ -139,16 +147,28 @@ small.watch-date {
 }
 
 .login-form {
+  display: flex;
+  flex-direction: column;
   position: absolute;
-  right: 300px;
+  right: 20%;
   top: 40%;
   transform: translateY(-50%);
 }
 
 .container {
-  display: grid;
-  grid-template-columns: 10rem 10rem 10rem;
-  grid-gap: 1rem;
+  display:grid;
+  left: 0%;
+  grid-template-columns: 17rem 17rem 17rem;
+  grid-gap: 3rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .login-form {
+    order: 2;
+  }
 }
 
 .ingredient-list {
@@ -165,10 +185,6 @@ small.watch-date {
   padding: 8px;
 }
 
-.ingredient-list__item:hover {
-  background-color: #54b85d;
-}
-
 .protein-list {
   list-style: none;
   margin: 0;
@@ -181,10 +197,6 @@ small.watch-date {
   border-radius: 4px;
   margin-bottom: 8px;
   padding: 8px;
-}
-
-.protein-list__item:hover {
-  background-color: #be59a0;
 }
 
 .bowl-list {
@@ -201,16 +213,24 @@ small.watch-date {
   padding: 8px;
 }
 
-.bowl-list__item:hover {
-  background-color: #bd9833;
+.category {
+  background-color: #d5e97b;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 8px;
 }
 
-.category {
+.categorynohover {
   background-color: #d0e960;
   font-weight: bold;
   border-radius: 4px;
   margin-bottom: 16px;
   padding: 8px;
+}
+
+.category:hover {
+  background-color: #ddc175;
 }
 
 .info {
@@ -222,4 +242,68 @@ small.watch-date {
 
 .display-linebreak {
   white-space: pre-line;
+}
+
+.order-0 {
+  background-color: #dfb28e;;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 8px;
+}
+.order-1 {
+  background-color: #b49e8a;;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 8px;
+}
+.order-1:hover {
+  background-color: #af8f70;;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 8px;
+}
+.order-12 {
+  background-color: #ebb9e0;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 8px;
+}
+.order-2 {
+  background-color: #cf8cc1;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 8px;
+}
+.order-2:hover {
+  background-color: #c776b5;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 8px;
+}
+.order-23 {
+  background-color: #a6e692;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 8px;
+}
+.order-3 {
+  background-color: #76bd61;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 8px;
+}
+.order-3:hover {
+  background-color: #5d924d;
+  font-weight: bold;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 8px;
 }

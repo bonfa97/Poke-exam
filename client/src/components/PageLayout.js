@@ -68,7 +68,7 @@ function MainLayout(props) {
       .catch(e => handleErrors(e)); 
   }
 
-  // update a film into the list
+  // update a order into the list
   const updateOrder = (order) => {
     API.updateOrder(order)
       .then(() => { setDirty(true); })
@@ -85,7 +85,7 @@ function MainLayout(props) {
       <OrderTable orders={filteredOrders}
         deleteOrder={deleteOrder} updateOrder={updateOrder} />
       <Link to="/add" state={{ nextpage: location.pathname }}>
-        <Button variant="primary" size="lg" className="fixed-right-bottom" > Proceed with the order </Button>
+        <Button variant="primary" size="lg" className="fixed-right-bottom" > Order </Button>
       </Link>
     </>
   )
@@ -122,7 +122,7 @@ function EditLayout(props) {
       }); 
   }, [orderId]);
 
-  // update a film into the list
+  // update a order into the list
   const editOrder = (order) => {
     API.updateOrder(order)
       .catch(e => handleErrors(e)); 

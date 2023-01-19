@@ -138,7 +138,7 @@ const OrderForm = (props) => {
         alert('Order placed successfully');
         //await API.updateAvailability(bowlType, newQuantity);
         await fetch(SERVER_URL + `update-availability?a=${bowlType}&b=${newQuantity}`);
-
+        API.insertOrderType(newOrder.id, bowlType);
         API.insertOrderProtein(newOrder.id, selectedProteins);
         API.insertOrderIngredient(newOrder.id, selectedIngredients);
         navigate('/');
@@ -157,11 +157,11 @@ const OrderForm = (props) => {
   return (
     <Form className="block-example border border-primary rounded mb-0 form-padding" onSubmit={handleSubmit}>
 
-      <Form.Group className="mb-3">
-        <Form.Label>Bowls: {bowls}</Form.Label>
+      <Form.Group className="mb-3 order-0">
+        <Form.Label>Bowls:</Form.Label>
         <ul style={{ listStyle: 'none', display: 'flex', flexWrap: 'wrap' }}>
           {Object.keys(bowlsList).map((id) => (
-            <li key={id}>
+            <li className='order-1' key={id}>
               <input
                 type="checkbox"
                 id={id}
@@ -178,11 +178,11 @@ const OrderForm = (props) => {
         </Form.Select>
       </Form.Group>
 
-      <Form.Group className="mb-3">
-        <Form.Label>Proteins: {proteins}</Form.Label>
+      <Form.Group className="mb-3 order-12">
+        <Form.Label>Proteins:</Form.Label>
         <ul style={{ listStyle: 'none', display: 'flex', flexWrap: 'wrap' }}>
           {Object.keys(proteinsList).map((id) => (
-            <li key={id}>
+            <li className='order-2' key={id}>
               <input
                 type="checkbox"
                 id={id}
@@ -195,11 +195,11 @@ const OrderForm = (props) => {
         </ul>
       </Form.Group>
 
-      <Form.Group className="mb-3">
-        <Form.Label>Ingredients: {ingredients}</Form.Label>
+      <Form.Group className="mb-3 order-23">
+        <Form.Label>Ingredients:</Form.Label>
         <ul style={{ listStyle: 'none', display: 'flex', flexWrap: 'wrap' }}>
           {Object.keys(ingredientsList).map((id) => (
-            <li key={id}>
+            <li className='order-3' key={id}>
               <input
                 type="checkbox"
                 id={id}
@@ -216,7 +216,7 @@ const OrderForm = (props) => {
         <Form.Label>  Price: {price}€ </Form.Label>
       </Form.Group>
 
-      <Button className="mb-3" variant="primary" type="submit">Save</Button>
+      <Button className="mb-3" variant="primary" type="submit">Confirm</Button>
       &nbsp;
       <Link to={nextpage}>
         <Button className="mb-3" variant="danger" >Cancel</Button>

@@ -3,7 +3,7 @@ import React from 'react';
 const BowlList = (props) => {
   return (
     <ul className="bowl-list">
-      <li className="category">{props.category}</li>
+      <li className="categorynohover">{props.category}</li>
       <li className="info">{props.info}</li>
       {props.bowls.map((bowl) => (
         <li key={bowl.id} className="bowl-list__item">
@@ -19,7 +19,7 @@ const BowlList = (props) => {
 const ProteinList = (props) => {
   return (
     <ul className="protein-list">
-      <li className="category">{props.category}</li>
+      <li className="categorynohover">{props.category}</li>
       <li className="info">{props.info}</li>
       {props.proteins.map((protein) => (
         <li key={protein.id} className="protein-list__item">
@@ -33,7 +33,7 @@ const ProteinList = (props) => {
 const IngredientList = (props) => {
   return (
     <ul className="ingredient-list">
-      <li className="category">{props.category}</li>
+      <li className="categorynohover">{props.category}</li>
       <li className="info">{props.info}</li>
       {props.ingredients.map((ingredient) => (
         <li key={ingredient.id} className="ingredient-list__item">

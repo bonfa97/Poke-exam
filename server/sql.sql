@@ -14,8 +14,10 @@
 -- CREATE TABLE bowls_details (id INTEGER NOT NULL PRIMARY KEY, bowlType TEXT NOT NULL, price INTEGER NOT NULL, availability INTEGER NOT NULL);
 -- CREATE TABLE user_orders (userID INTEGER NOT NULL, orderID INTEGER NOT NULL PRIMARY KEY);
 -- CREATE TABLE proteins (proteinID INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL);
+-- CREATE TABLE types (typeID INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL);
 -- CREATE TABLE ingredients (ingredientID INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL);
 -- CREATE TABLE order_protein (orderID INTEGER NOT NULL, proteinID INTEGER NOT NULL);
+-- CREATE TABLE order_type (orderID INTEGER NOT NULL, typeID INTEGER NOT NULL);
 -- CREATE TABLE order_ingredient (orderID INTEGER NOT NULL, ingredientID INTEGER NOT NULL);
 -- CREATE TABLE orders (id INTEGER NOT NULL PRIMARY KEY, bowls INTEGER NOT NULL, proteins INTEGER NOT NULL, ingredients INTEGER NOT NULL, price FLOAT NOT NULL, user INTEGER NOT NULL);
 -- CREATE TABLE users (id INTEGER NOT NULL PRIMARY KEY, email TEXT NOT NULL, name TEXT NOT NULL, hash TEXT NOT NULL, salt TEXT NOT NULL);
@@ -28,6 +30,9 @@
 -- INSERT INTO proteins (proteinID, name) VALUES ("4", "tuna");
 -- INSERT INTO proteins (proteinID, name) VALUES ("5", "chicken");
 -- INSERT INTO proteins (proteinID, name) VALUES ("6", "salmon");
+-- INSERT INTO types (typeID, name) VALUES ("1", "regular");
+-- INSERT INTO types (typeID, name) VALUES ("2", "medium");
+-- INSERT INTO types (typeID, name) VALUES ("3", "large");
 -- INSERT INTO proteins (proteinID, name) VALUES ("7", "tofu");
 -- INSERT INTO ingredients (ingredientID, name) VALUES ("8", "avocado");
 -- INSERT INTO ingredients (ingredientID, name) VALUES ("9", "ananas");

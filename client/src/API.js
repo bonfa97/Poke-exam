@@ -34,11 +34,11 @@ function getJson(httpResponsePromise) {
 }
 
 /**
- * Getting from the server side and returning the list of films.
- * The list of films could be filtered in the server-side through the optional parameter: filter.
+ * Getting from the server side and returning the list of orders.
+ * The list of orders could be filtered in the server-side through the optional parameter: filter.
  */
 const getOrders = async (filter) => {
-  // film.watchDate could be null or a string in the format YYYY-MM-DD
+  // order.watchDate could be null or a string in the format YYYY-MM-DD
   return getJson(
     filter 
       ? fetch(SERVER_URL + 'orders?filter=' + filter, { credentials: 'include' })
@@ -72,7 +72,7 @@ async function checkIngredientsDetails (orderId) {
 }
 
 /**
- * Getting and returing a film, specifying its filmId.
+ * Getting and returing a order, specifying its orderId.
  */
 const getOrder = async (orderId) => {
   return getJson( fetch(SERVER_URL + 'orders/' + orderId, { credentials: 'include' }))
@@ -93,7 +93,7 @@ const getOrder = async (orderId) => {
  }
 
 /**
- * This function wants a film object as parameter. If the filmId exists, it updates the film in the server side.
+ * This function wants a order object as parameter. If the orderId exists, it updates the order in the server side.
  */
 function updateOrder(order) {
   return getJson(
@@ -104,6 +104,19 @@ function updateOrder(order) {
       },
       credentials: 'include',
       body: JSON.stringify(order) // dayjs date is serialized correctly by the .toJSON method override
+    })
+  )
+}
+
+function insertOrderType(id, typeId) {
+  return getJson(
+    fetch(SERVER_URL + "order_types/", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify({ orderId: id, typeId }) 
     })
   )
 }
@@ -135,7 +148,7 @@ function insertOrderIngredient(id, ingredientId) {
 }
 
 /**
- * This funciton adds a new film in the back-end library.
+ * This funciton adds a new order in the back-end library.
  */
 function addOrder(order) {
   return getJson(
@@ -151,7 +164,7 @@ function addOrder(order) {
 }
 
 /**
- * This function deletes a film from the back-end library.
+ * This function deletes a order from the back-end library.
  */
 function deleteOrder(order) {
   return getJson(
@@ -201,5 +214,5 @@ const logOut = async() => {
 }
 
 
-const API = {logIn, getUserInfo, logOut, getOrders, updateOrder, deleteOrder, addOrder, getOrder, getFilters, insertOrderIngredient, insertOrderProtein, checkProteinsDetails, checkIngredientsDetails, updateAvailability};
+const API = {logIn, getUserInfo, logOut, getOrders, updateOrder, deleteOrder, addOrder, getOrder, getFilters, insertOrderType, insertOrderIngredient, insertOrderProtein, checkProteinsDetails, checkIngredientsDetails, updateAvailability};
 export default API;

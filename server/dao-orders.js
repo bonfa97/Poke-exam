@@ -69,6 +69,25 @@ exports.checkBowlAvailability = (bowlType) => {
   });
 };
 
+exports.searchTypeDetails = (detailsId) => {
+  return new Promise((resolve, reject) => {
+    //const sql = 'SELECT * FROM order_protein WHERE orderID = ?';
+    const sql = 'SELECT typeID FROM order_type WHERE orderID = ?';
+    db.all(sql, [detailsId], (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      if (!rows) {
+        resolve({ error: 'No type details found.' });
+      } else {
+        //const vectorT = rows.map(row => row.typeId);
+        resolve({ status: 'success', vectorT: rows.map(o => o.typeID) });
+      }
+    });
+  });
+};
+
 exports.searchProteinsDetails = (detailsId) => {
   return new Promise((resolve, reject) => {
     //const sql = 'SELECT * FROM order_protein WHERE orderID = ?';
@@ -107,7 +126,7 @@ exports.searchIngredientsDetails = (detailsId) => {
   });
 };
 
-// This function retrieves a film given its id and the associated user id.
+// This function retrieves a order given its id and the associated user id.
 exports.getOrder = (user, id) => {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT * FROM orders WHERE id=? and user=?';
@@ -130,9 +149,24 @@ exports.getOrder = (user, id) => {
 
 
 /**
- * This function adds a new film in the database.
- * The film id is added automatically by the DB, and it is returned as this.lastID.
+ * This function adds a new order in the database.
+ * The order id is added automatically by the DB, and it is returned as this.lastID.
  */
+exports.insertOrderType = (order, typeId) => {
+  return new Promise((resolve, reject) => {
+    const sql = `INSERT INTO order_type (orderID, typeID) VALUES (?, ?)`;
+    
+      db.run(sql, [order, typeId], function (err) {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve({ status: 'success' });
+      });
+    
+  });
+};
+
 exports.insertOrderProtein = (order, proteinId) => {
   return new Promise((resolve, reject) => {
     const sql = `INSERT INTO order_protein (orderID, proteinID) VALUES (?, ?)`;
@@ -192,7 +226,7 @@ exports.updateOrder = (user, id, order) => {
   });
 };
 
-// This function deletes an existing film given its id.
+// This function deletes an existing order given its id.
 exports.deleteOrder = (user, id) => {
   return new Promise((resolve, reject) => {
     const sql = 'DELETE FROM orders WHERE id = ? and user = ?';
