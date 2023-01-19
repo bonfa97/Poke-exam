@@ -273,8 +273,30 @@ Provide a short description for API with the required parameters, follow the pro
 
 #### React components
 
-ListOfSomething (in List.js): component purpose and main functionality
-GreatButton (in GreatButton.js): component purpose and main functionality
+LoginForm (Homepage.js) : it works entering email and password to login
+Logout Button (Homepage.js) : button on navigation bar to logout and go back to homepage
+OrderForm (OrderForm.js) : user can select type and number o bowls, multiple proteins and ingredient the confirm order or delete
+OrderTable (PastOrders.js) : user can see all previous order and check for more details
+
+#### User actions
+
+The application contains:
+
+* a navigation bar (with a logo and a user icon)
+* the main content (i.e., the list of previous orders),
+* a button for adding new orders.
+
+Each order is displayed in the following manner:
+
+*	The number of bowls.
+*	The number of proteins.
+*	The number of ingredients.
+*	The price previously computed.
+
+User actions:
+
+* If user clicks one of the past orders, it expands showing details: type of bowl, list of proteins and ingredients selected.
+* with the "order" button a form is shown to insert the order details and add it to the orders list.
 
 #### Database tables:
 
